@@ -1,0 +1,48 @@
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace CricketLeagueAnalyser
+{
+    public class CricketAnalyser
+    {
+        public readonly string path;
+
+        public CricketAnalyser(string path)
+        {
+            this.path = path;
+        }
+
+        public string CsvToJSON()
+        {
+            var csv = new List<string[]>();
+            var lines = File.ReadAllLines(path);
+
+            foreach (string line in lines)
+                csv.Add(line.Split(','));
+
+            var properties = lines[0].Split(',');
+
+            var listObjResult = new List<Dictionary<string, string>>();
+
+            for (int rows = 1; rows < lines.Length; rows++)
+            {
+                var objResult = new Dictionary<string, string>();
+                for (int columns = 0; columns < properties.Length; columns++)
+                    objResult.Add(properties[columns], csv[rows][columns]);
+
+                listObjResult.Add(objResult);
+            }
+            return JsonConvert.SerializeObject(listObjResult);
+        }
+
+        public string SortByBattingAverage()
+        {
+            var listObj = JsonConvert.DeserializeObject<List<MostRunsModel>>(CsvToJSON());
+            var asclistObj = listObj.OrderByDescending(element => element.Avg);
+            return JsonConvert.SerializeObject(asclistObj);
+        }
+
+    }
+}

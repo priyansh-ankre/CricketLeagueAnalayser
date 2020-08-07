@@ -6,7 +6,7 @@ namespace CricketLeagueAnalyser
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Welcome to Cricket League Analyser Application");
         }
     }
 }
