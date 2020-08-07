@@ -33,9 +33,24 @@ namespace CricketLeagueAnalyserTest
             CricketLeagueAnalyser.CricketAnalyser cricketAnalyser = new CricketLeagueAnalyser.CricketAnalyser(IPL_MOST_RUNS_FILE);
             string jsonData = cricketAnalyser.SortByMostSixesHit();
             JArray jArray = JArray.Parse(jsonData);
-            string PlayerfirstValue = jArray[0]["PLAYER"].ToString();
-            string SixesfirstValue = jArray[0]["Sixs"].ToString();
-            Assert.AreEqual("Andre Russell:52", PlayerfirstValue+":"+SixesfirstValue);
+            string playerfirstValue = jArray[0]["PLAYER"].ToString();
+            string sixesfirstValue = jArray[0]["Sixs"].ToString();
+            Assert.AreEqual("Andre Russell:52", playerfirstValue+":"+sixesfirstValue);
         }
+
+        [Test]
+        public void GivenIPLMostRunsFile_WhenAnalysedForSorting_ThenShouldReturnBatsmenStrikingRateWithSixesAndFoursInDescOrder()
+        {
+            CricketLeagueAnalyser.CricketAnalyser cricketAnalyser = new CricketLeagueAnalyser.CricketAnalyser(IPL_MOST_RUNS_FILE);
+            string jsonData = cricketAnalyser.SortByBatsmenStrikingRate();
+            JArray jArray = JArray.Parse(jsonData);
+            string playerfirstValue = jArray[0]["PLAYER"].ToString();
+            string sixesfirstValue = jArray[0]["Sixs"].ToString();
+            string foursfirstValue = jArray[0]["Fours"].ToString();
+            string firstValue = jArray[0]["SR"].ToString();
+            Assert.AreEqual("Ishant Sharma:Strike Rate=333.33:Sixes=1:Fours=1", playerfirstValue+":Strike Rate="+firstValue+":Sixes="+sixesfirstValue+":Fours="+foursfirstValue);
+        }
+
+
     }
 }
