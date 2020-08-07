@@ -58,5 +58,11 @@ namespace CricketLeagueAnalyser
             return JsonConvert.SerializeObject(desclistObj);
         }
 
+        public string SortByMostRuns()
+        {
+            var listObj = JsonConvert.DeserializeObject<List<MostRunsModel>>(CsvToJSON());
+            var desclistObj = listObj.OrderByDescending(element => element.Runs);
+            return JsonConvert.SerializeObject(desclistObj);
+        }
     }
 }
