@@ -51,6 +51,16 @@ namespace CricketLeagueAnalyserTest
             Assert.AreEqual("Ishant Sharma:Strike Rate=333.33:Sixes=1:Fours=1", playerfirstValue+":Strike Rate="+firstValue+":Sixes="+sixesfirstValue+":Fours="+foursfirstValue);
         }
 
-
+        [Test]
+        public void GivenIPLMostRunsFile_WhenAnalysedForSorting_ThenShouldReturnAverageInDescOrderWithNameAndStrikeRate()
+        {
+            CricketLeagueAnalyser.CricketAnalyser cricketAnalyser = new CricketLeagueAnalyser.CricketAnalyser(IPL_MOST_RUNS_FILE);
+            string jsonData = cricketAnalyser.SortByBattingAverage();
+            JArray jArray = JArray.Parse(jsonData);
+            string playerfirstValue = jArray[0]["PLAYER"].ToString();
+            string strikeRateFirstValue = jArray[0]["SR"].ToString();
+            string averageFirstValue = jArray[0]["Avg"].ToString();
+            Assert.AreEqual("MS Dhoni:Avg=83.2:SR=134.62", playerfirstValue+":Avg="+averageFirstValue+":SR="+strikeRateFirstValue);
+        }
     }
 }
