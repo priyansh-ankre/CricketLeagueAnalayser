@@ -62,5 +62,17 @@ namespace CricketLeagueAnalyserTest
             string averageFirstValue = jArray[0]["Avg"].ToString();
             Assert.AreEqual("MS Dhoni:Avg=83.2:SR=134.62", playerfirstValue+":Avg="+averageFirstValue+":SR="+strikeRateFirstValue);
         }
+
+        [Test]
+        public void GivenIPLMostRunsFile_WhenAnalysedForSorting_ThenShouldReturnRunsInDescOrderWithNameAndAverage()
+        {
+            CricketLeagueAnalyser.CricketAnalyser cricketAnalyser = new CricketLeagueAnalyser.CricketAnalyser(IPL_MOST_RUNS_FILE);
+            string jsonData = cricketAnalyser.SortByMostRuns();
+            JArray jArray = JArray.Parse(jsonData);
+            string playerfirstValue = jArray[0]["PLAYER"].ToString();
+            string averageFirstValue = jArray[0]["Avg"].ToString();
+            string runsFirstValue = jArray[0]["Runs"].ToString();
+            Assert.AreEqual("David Warner :Runs=692:Avg=69.2", playerfirstValue +":Runs="+runsFirstValue + ":Avg=" + averageFirstValue);
+        }
     }
 }
