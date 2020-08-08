@@ -106,5 +106,17 @@ namespace CricketLeagueAnalyserTest
             string bowlingStrikingRateFirstValue = jArray[0]["Econ"].ToString();
             Assert.AreEqual("4.8", bowlingStrikingRateFirstValue);
         }
+
+        [Test]
+        public void GivenIPLMostWicketsFile_WhenAnalysedForSorting_ThenShouldReturnBowlingStrikingRateInAsccOrderWithFourWAndFiveW()
+        {
+            CricketAnalyser cricketAnalyser = new CricketAnalyser(IPL_MOST_WICKETS_FILE);
+            string jsonData = cricketAnalyser.SortByBowlingStrikingRate();
+            JArray jArray = JArray.Parse(jsonData);
+            string FourWFirstValue = jArray[13]["FourW"].ToString();
+            string FiveWFirstValue= jArray[13]["FiveW"].ToString();
+            string bowlingStrikingRateFirstValue = jArray[13]["SR"].ToString();
+            Assert.AreEqual("8.66:5W=1:4W=0", bowlingStrikingRateFirstValue+":5W="+FiveWFirstValue+":4W="+FourWFirstValue);
+        }
     }
 }
