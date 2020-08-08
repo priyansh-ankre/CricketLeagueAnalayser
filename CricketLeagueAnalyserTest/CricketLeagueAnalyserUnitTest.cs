@@ -78,7 +78,7 @@ namespace CricketLeagueAnalyserTest
         }
 
         [Test]
-        public void GivenIPLMostWicketsFile_WhenAnalysedForSorting_ThenShouldReturnBowlingAverageInDescOrder()
+        public void GivenIPLMostWicketsFile_WhenAnalysedForSorting_ThenShouldReturnBowlingAverageInAscOrder()
         {
             CricketAnalyser cricketAnalyser = new CricketAnalyser(IPL_MOST_WICKETS_FILE);
             string jsonData = cricketAnalyser.SortByBowlingAverage();
@@ -88,13 +88,23 @@ namespace CricketLeagueAnalyserTest
         }
 
         [Test]
-        public void GivenIPLMostWicketsFile_WhenAnalysedForSorting_ThenShouldReturnBowlingStrikingRateInDescOrder()
+        public void GivenIPLMostWicketsFile_WhenAnalysedForSorting_ThenShouldReturnBowlingStrikingRateInAsccOrder()
         {
             CricketAnalyser cricketAnalyser = new CricketAnalyser(IPL_MOST_WICKETS_FILE);
             string jsonData = cricketAnalyser.SortByBowlingStrikingRate();
             JArray jArray = JArray.Parse(jsonData);
-            string bowlingStrikingRateFirstValue = jArray[13]["Avg"].ToString();
-            Assert.AreEqual("14.5", bowlingStrikingRateFirstValue);
+            string bowlingStrikingRateFirstValue = jArray[13]["SR"].ToString();
+            Assert.AreEqual("8.66", bowlingStrikingRateFirstValue);
+        }
+
+        [Test]
+        public void GivenIPLMostWicketsFile_WhenAnalysedForSorting_ThenShouldReturnBowlingEconomyInAsccOrder()
+        {
+            CricketAnalyser cricketAnalyser = new CricketAnalyser(IPL_MOST_WICKETS_FILE);
+            string jsonData = cricketAnalyser.SortByBowlingEconomy();
+            JArray jArray = JArray.Parse(jsonData);
+            string bowlingStrikingRateFirstValue = jArray[0]["Econ"].ToString();
+            Assert.AreEqual("4.8", bowlingStrikingRateFirstValue);
         }
     }
 }
