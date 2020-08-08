@@ -7,6 +7,7 @@ namespace CricketLeagueAnalyser
 {
     public class CricketAnalyser
     {
+
         public readonly string path;
 
         public CricketAnalyser(string path)
@@ -98,6 +99,20 @@ namespace CricketLeagueAnalyser
             var listObj = JsonConvert.DeserializeObject<List<MostRunsModel>>(CsvToJSON());
             var desclistObj = listObj.OrderByDescending(element => element.Hundreds);
             return JsonConvert.SerializeObject(desclistObj);
+        }
+
+        public string SortByLeastHundreds()
+        {
+            var listObj = JsonConvert.DeserializeObject<List<MostRunsModel>>(CsvToJSON());
+            var asclistObj = listObj.OrderBy(element => element.Hundreds);
+            return JsonConvert.SerializeObject(asclistObj);
+        }
+
+        public string SortByFifties()
+        {
+            var listObj = JsonConvert.DeserializeObject<List<MostRunsModel>>(CsvToJSON());
+            var asclistObj = listObj.OrderBy(element => element.Fiftys.Equals(SortByLeastHundreds()));
+            return JsonConvert.SerializeObject(asclistObj);
         }
     }
 }
