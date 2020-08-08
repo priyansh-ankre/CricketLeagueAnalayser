@@ -142,17 +142,16 @@ namespace CricketLeagueAnalyserTest
         }
 
         [Test]
-        public void GivenIPLFile_WhenAnalysedForSorting_ThenShouldReturnSortedBattingAndBowlingAverage()
+        public void GivenIPLMostRunsFile_WhenAnalysedForSorting_ThenShouldReturnMostHundredsInDescOrderWithBattingAverage()
         {
-            CricketAnalyser cricketAnalyserBowling = new CricketAnalyser(IPL_MOST_WICKETS_FILE);
-            CricketAnalyser cricketAnalyserBatting = new CricketAnalyser(IPL_MOST_RUNS_FILE);
-            string jsonDataBowling = cricketAnalyserBowling.SortByBowlingAverage();
-            string jsonDataBatting = cricketAnalyserBatting.SortByBattingAverage();
-            JArray jArrayBatting = JArray.Parse(jsonDataBatting);
-            JArray jArrayBowling = JArray.Parse(jsonDataBowling);
-            string bowlingAverageFirstValue = jArrayBowling[13]["Avg"].ToString();
-            string battingAverageFirstValue = jArrayBatting[0]["Avg"].ToString();
-            Assert.AreEqual("11:battingAvg=83.2", bowlingAverageFirstValue+":battingAvg="+battingAverageFirstValue);
+            CricketAnalyser cricketAnalyser = new CricketAnalyser(IPL_MOST_RUNS_FILE);
+            string jsonData = cricketAnalyser.SortByMostHundreds();
+            JArray jArray = JArray.Parse(jsonData);
+            string hundredsfirstValue = jArray[0]["Hundreds"].ToString();
+            string battingAveragefirstValue = jArray[0]["Avg"].ToString();
+            Assert.AreEqual("1:Avg=69.2", hundredsfirstValue+":Avg="+battingAveragefirstValue);
         }
+
+
     }
 }
