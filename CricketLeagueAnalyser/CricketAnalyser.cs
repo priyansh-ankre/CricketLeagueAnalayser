@@ -85,5 +85,12 @@ namespace CricketLeagueAnalyser
             var asclistObj = listObj.OrderBy(element => element.Econ);
             return JsonConvert.SerializeObject(asclistObj);
         }
+
+        public string SortByMostWickets()
+        {
+            var listObj = JsonConvert.DeserializeObject<List<MostWicketsModel>>(CsvToJSON());
+            var desclistObj = listObj.OrderByDescending(element => element.Wkts);
+            return JsonConvert.SerializeObject(desclistObj);
+        }
     }
 }
