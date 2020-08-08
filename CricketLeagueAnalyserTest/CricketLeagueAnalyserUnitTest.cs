@@ -1,16 +1,18 @@
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
+using CricketLeagueAnalyser;
 
 namespace CricketLeagueAnalyserTest
 {
     public class CricketLeagueAnalyserUnitTest
     {
         private string IPL_MOST_RUNS_FILE = @"C:\Users\hp\source\repos\CricketLeagueAnalyserApp\CricketLeagueAnalyser\CsvFiles\Day12 Data_01 IPL2019FactsheetMostRuns.csv";
-
+        private string IPL_MOST_WICKETS_FILE = @"C:\Users\hp\source\repos\CricketLeagueAnalyserApp\CricketLeagueAnalyser\CsvFiles\Day12 Data_02 IPL2019FactsheetMostWkts.csv";
+        
         [Test]
         public void GivenIPLMostRunsFile_WhenAnalysedForSorting_ThenShouldReturnBattingAverageInDescOrder()
         {
-            CricketLeagueAnalyser.CricketAnalyser cricketAnalyser = new CricketLeagueAnalyser.CricketAnalyser(IPL_MOST_RUNS_FILE);
+            CricketAnalyser cricketAnalyser = new CricketAnalyser(IPL_MOST_RUNS_FILE);
             string jsonData = cricketAnalyser.SortByBattingAverage();
             JArray jArray = JArray.Parse(jsonData);
             string firstValue = jArray[0]["Avg"].ToString();
@@ -20,7 +22,7 @@ namespace CricketLeagueAnalyserTest
         [Test]
         public void GivenIPLMostRunsFile_WhenAnalysedForSorting_ThenShouldReturnBatsmenStrikingRateInDescOrder()
         {
-            CricketLeagueAnalyser.CricketAnalyser cricketAnalyser = new CricketLeagueAnalyser.CricketAnalyser(IPL_MOST_RUNS_FILE);
+            CricketAnalyser cricketAnalyser = new CricketAnalyser(IPL_MOST_RUNS_FILE);
             string jsonData = cricketAnalyser.SortByBatsmenStrikingRate();
             JArray jArray = JArray.Parse(jsonData);
             string firstValue = jArray[0]["SR"].ToString();
@@ -30,7 +32,7 @@ namespace CricketLeagueAnalyserTest
         [Test]
         public void GivenIPLMostRunsFile_WhenAnalysedForSorting_ThenShouldReturnMostSixesHitInDescOrder()
         {
-            CricketLeagueAnalyser.CricketAnalyser cricketAnalyser = new CricketLeagueAnalyser.CricketAnalyser(IPL_MOST_RUNS_FILE);
+            CricketAnalyser cricketAnalyser = new CricketAnalyser(IPL_MOST_RUNS_FILE);
             string jsonData = cricketAnalyser.SortByMostSixesHit();
             JArray jArray = JArray.Parse(jsonData);
             string playerfirstValue = jArray[0]["PLAYER"].ToString();
@@ -41,7 +43,7 @@ namespace CricketLeagueAnalyserTest
         [Test]
         public void GivenIPLMostRunsFile_WhenAnalysedForSorting_ThenShouldReturnBatsmenStrikingRateWithSixesAndFoursInDescOrder()
         {
-            CricketLeagueAnalyser.CricketAnalyser cricketAnalyser = new CricketLeagueAnalyser.CricketAnalyser(IPL_MOST_RUNS_FILE);
+            CricketAnalyser cricketAnalyser = new CricketAnalyser(IPL_MOST_RUNS_FILE);
             string jsonData = cricketAnalyser.SortByBatsmenStrikingRate();
             JArray jArray = JArray.Parse(jsonData);
             string playerfirstValue = jArray[0]["PLAYER"].ToString();
@@ -54,7 +56,7 @@ namespace CricketLeagueAnalyserTest
         [Test]
         public void GivenIPLMostRunsFile_WhenAnalysedForSorting_ThenShouldReturnAverageInDescOrderWithNameAndStrikeRate()
         {
-            CricketLeagueAnalyser.CricketAnalyser cricketAnalyser = new CricketLeagueAnalyser.CricketAnalyser(IPL_MOST_RUNS_FILE);
+            CricketAnalyser cricketAnalyser = new CricketAnalyser(IPL_MOST_RUNS_FILE);
             string jsonData = cricketAnalyser.SortByBattingAverage();
             JArray jArray = JArray.Parse(jsonData);
             string playerfirstValue = jArray[0]["PLAYER"].ToString();
@@ -66,13 +68,23 @@ namespace CricketLeagueAnalyserTest
         [Test]
         public void GivenIPLMostRunsFile_WhenAnalysedForSorting_ThenShouldReturnRunsInDescOrderWithNameAndAverage()
         {
-            CricketLeagueAnalyser.CricketAnalyser cricketAnalyser = new CricketLeagueAnalyser.CricketAnalyser(IPL_MOST_RUNS_FILE);
+            CricketAnalyser cricketAnalyser = new CricketAnalyser(IPL_MOST_RUNS_FILE);
             string jsonData = cricketAnalyser.SortByMostRuns();
             JArray jArray = JArray.Parse(jsonData);
             string playerfirstValue = jArray[0]["PLAYER"].ToString();
             string averageFirstValue = jArray[0]["Avg"].ToString();
             string runsFirstValue = jArray[0]["Runs"].ToString();
             Assert.AreEqual("David Warner :Runs=692:Avg=69.2", playerfirstValue +":Runs="+runsFirstValue + ":Avg=" + averageFirstValue);
+        }
+
+        [Test]
+        public void GivenIPLMostWicketsFile_WhenAnalysedForSorting_ThenShouldReturnBowlingAverageInDescOrder()
+        {
+            CricketAnalyser cricketAnalyser = new CricketAnalyser(IPL_MOST_WICKETS_FILE);
+            string jsonData = cricketAnalyser.SortByBowlingAverage();
+            JArray jArray = JArray.Parse(jsonData);
+            string bowlingAverageFirstValue = jArray[13]["Avg"].ToString();
+            Assert.AreEqual("11", bowlingAverageFirstValue);
         }
     }
 }
