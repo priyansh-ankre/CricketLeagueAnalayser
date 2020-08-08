@@ -152,6 +152,14 @@ namespace CricketLeagueAnalyserTest
             Assert.AreEqual("1:Avg=69.2", hundredsfirstValue+":Avg="+battingAveragefirstValue);
         }
 
-
+        [Test]
+        public void GivenIPLMostRunsFile_WhenAnalysedForSorting_ThenShouldReturnBestAverageWithZeroHundredsAndFifties()
+        {
+            CricketAnalyser cricketAnalyser = new CricketAnalyser(IPL_MOST_RUNS_FILE);
+            string jsonData = cricketAnalyser.SortByFifties();
+            JArray jArray = JArray.Parse(jsonData);
+            string battingAveragefirstValue = jArray[0]["Avg"].ToString();
+            Assert.AreEqual("69.2",battingAveragefirstValue);
+        }
     }
 }
