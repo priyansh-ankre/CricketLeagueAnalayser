@@ -140,5 +140,19 @@ namespace CricketLeagueAnalyserTest
             string bowlingAverageFirstValue = jArray[0]["Avg"].ToString();
             Assert.AreEqual("26:BowlingAvg=16.57", wicketsFirstValue+":BowlingAvg="+bowlingAverageFirstValue);
         }
+
+        [Test]
+        public void GivenIPLFile_WhenAnalysedForSorting_ThenShouldReturnSortedBattingAndBowlingAverage()
+        {
+            CricketAnalyser cricketAnalyserBowling = new CricketAnalyser(IPL_MOST_WICKETS_FILE);
+            CricketAnalyser cricketAnalyserBatting = new CricketAnalyser(IPL_MOST_RUNS_FILE);
+            string jsonDataBowling = cricketAnalyserBowling.SortByBowlingAverage();
+            string jsonDataBatting = cricketAnalyserBatting.SortByBattingAverage();
+            JArray jArrayBatting = JArray.Parse(jsonDataBatting);
+            JArray jArrayBowling = JArray.Parse(jsonDataBowling);
+            string bowlingAverageFirstValue = jArrayBowling[13]["Avg"].ToString();
+            string battingAverageFirstValue = jArrayBatting[0]["Avg"].ToString();
+            Assert.AreEqual("11:battingAvg=83.2", bowlingAverageFirstValue+":battingAvg="+battingAverageFirstValue);
+        }
     }
 }
