@@ -129,5 +129,16 @@ namespace CricketLeagueAnalyserTest
             string bowlingStrikingRateFirstValue = jArray[13]["SR"].ToString();
             Assert.AreEqual("11:SR=12", bowlingAverageFirstValue+":SR="+ bowlingStrikingRateFirstValue);
         }
+
+        [Test]
+        public void GivenIPLMostWicketsFile_WhenAnalysedForSorting_ThenShouldReturnWicketsInDescOrderWithBowlingAverage()
+        {
+            CricketAnalyser cricketAnalyser = new CricketAnalyser(IPL_MOST_WICKETS_FILE);
+            string jsonData = cricketAnalyser.SortByMostWickets();
+            JArray jArray = JArray.Parse(jsonData);
+            string wicketsFirstValue = jArray[0]["Wkts"].ToString();
+            string bowlingAverageFirstValue = jArray[0]["Avg"].ToString();
+            Assert.AreEqual("26:BowlingAvg=16.57", wicketsFirstValue+":BowlingAvg="+bowlingAverageFirstValue);
+        }
     }
 }
