@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CricketLeagueAnalyser
 {
-    public class CricketAnalyser
+    public class CricketAnalyser:ICricketAnalyser
     {
 
         public readonly string path;
